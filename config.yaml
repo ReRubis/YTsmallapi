@@ -1,0 +1,13 @@
+# Your API KEY goes here
+KEY: KEY
+
+# DB user
+DB_USER: postgres
+
+# DB name
+DB_NAME: postgres   
+
+# DB password
+DB_PASSWORD: postgres
+
+# uvicorn yutservice.main:app --reload
