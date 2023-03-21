@@ -1,5 +1,5 @@
 # Your API KEY goes here
-KEY: KEY
+KEY: API
 
 # DB user
 DB_USER: postgres
