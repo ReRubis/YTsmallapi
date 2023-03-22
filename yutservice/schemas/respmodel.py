@@ -7,6 +7,7 @@ class Item(BaseModel):
     thumbnail: str
     title: str
     channelTitle: str
+    publishedAt: str | None
 
     class Config:
         orm_mode = True

@@ -1,5 +1,5 @@
 from datetime import datetime
-from yutservice.models.dbmodels import YouTubeVideos
+from yutservice.models.dbmodels import YouTubeVideo
 
 
 class BaseRepository():
@@ -58,7 +58,7 @@ class VideoRepository(BaseRepository):
         Currently only channeltitle
         """
         self.__model__ = model
-        return self.query.order_by(YouTubeVideos.channelTitle.asc())
+        return self.query.order_by(YouTubeVideo.channelTitle.asc())
 
     def save_video(self, model):
         """

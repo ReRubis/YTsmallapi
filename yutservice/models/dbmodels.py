@@ -22,8 +22,9 @@ class Base(object):
     )
 
 
-class YouTubeVideos(Base):
+class YouTubeVideo(Base):
 
     channelTitle = Column(String)
     thumbnail = Column(String)
     title = Column(String)
+    publishedAt = Column(String, nullable=True)
