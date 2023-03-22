@@ -16,9 +16,9 @@ async def request(
     service: Manager = Depends(Manager),
 ):
     """
-    returns 10 videos
+    returns 10 videos from youtube API
     """
-    return service.search(request.q, request.page_token)
+    return service.search(request.q, request.page_token, request.publishedAfter, request.publishedBefore)
 
 
 @router.get('/',

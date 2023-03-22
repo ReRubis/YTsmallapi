@@ -11,9 +11,9 @@ class Manager():
         self.model = YouTubeVideo
         self.repository = VideoRepository(session_init())
 
-    def search(self, q: str, pagetoken: str = None):
+    def search(self, q: str, pagetoken: str = None, publishedAfter: str = None, publishedBefore: str = None):
         """Makes a search with q"""
-        data = search_for_videos(q, pagetoken)
+        data = search_for_videos(q, pagetoken, publishedAfter, publishedBefore)
 
         items = []
         for item in data['items']:
