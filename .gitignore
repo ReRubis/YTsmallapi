@@ -233,3 +233,6 @@ whatever/
 
 .config.yaml
 config.yaml
+*.mp4
+*.webp
+*.webm
