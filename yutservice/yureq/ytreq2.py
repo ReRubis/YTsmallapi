@@ -1,9 +1,9 @@
 from asyncore import read
 from re import search
 import requests
-from yutservice.utils.readyaml import read_config_yaml
+from yutservice.config import CONFIG
 
-API_KEY = read_config_yaml()['KEY']
+API_KEY = CONFIG['KEY']
 
 
 def search_for_videos(

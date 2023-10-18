@@ -1,7 +1,8 @@
 import imp
 from fastapi import APIRouter, Depends
 from yutservice.schemas import reqmodel, respmodel
-from yutservice.services.service import Manager
+from yutservice.services.youtuber import YouTuber
+from yutservice.routes.injectors import get_youtube_service
 from fastapi import HTTPException, status
 
 router = APIRouter(
@@ -13,7 +14,7 @@ router = APIRouter(
 @router.post('/', response_model=respmodel.YouTubeSearchResponce)
 async def request(
     request: reqmodel.SearchReq,
-    service: Manager = Depends(Manager),
+    service: YouTuber = Depends(get_youtube_service),
 ):
     """
     returns 10 videos from youtube API
@@ -25,7 +26,7 @@ async def request(
             response_model=respmodel.YouTubeSearchResponce,
             )
 async def get_list(
-    service: Manager = Depends(Manager),
+    service: YouTuber = Depends(get_youtube_service),
 ):
     """
     returns all the videos that were searched before
