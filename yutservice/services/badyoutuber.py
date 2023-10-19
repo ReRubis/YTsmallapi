@@ -6,15 +6,44 @@ from yutservice.schemas import respmodel
 import yt_dlp
 
 
-class YouTuber():
+class BadYouTuber():
     def __init__(self, session):
         self.session = session
         self.model = YouTubeVideo
         self.repository = VideoRepository(self.session)
 
+    def video_search(self, query, page_token=None, published_after=None, published_before=None):
+        options = {
+            'quiet': True,
+            'extract_flat': True,
+            'force_generic_extractor': True,
+            'default_search': 'ytsearch',
+            'source_address': '0.0.0.0',
+            'nocheckcertificate': True
+        }
+
+        if published_after:
+            options['dateafter'] = published_after
+
+        if published_before:
+            options['datebefore'] = published_before
+
+        # If pagination is used, adjust the query
+        if page_token:
+            query = f"ytsearch{page_token}:{query}"
+        else:
+            # '10' indicates the number of results. Adjust as needed.
+            query = f"ytsearch10:{query}"
+
+        with yt_dlp.YoutubeDL(options) as ydl:
+            result = ydl.extract_info(query, download=False)
+
+        # Return the entries (video results)
+        return result['entries']
+
     def search(self, q: str, pagetoken: str = None, publishedAfter: str = None, publishedBefore: str = None):
         """Makes a search with q"""
-        data = search_for_videos(q, pagetoken, publishedAfter, publishedBefore)
+        data = self.video_search(q, pagetoken, publishedAfter, publishedBefore)
         items = []
         for item in data['items']:
             video_to_save = YouTubeVideo()
@@ -59,3 +88,20 @@ class YouTuber():
                 }
             )
         return {'items': result}
+
+    def download_video(self, url, format_code='bestvideo+bestaudio/best', output_template='%(title)s.%(ext)s'):
+
+        options = {
+            # Desired format: best video + best audio combined, or just the best overall.
+            'format': format_code,
+            # Naming template for downloaded files.
+            'outtmpl': output_template,
+            'postprocessors': [{
+                # Use FFmpeg to convert video files to format...
+                'key': 'FFmpegVideoConvertor',
+                'preferedformat': 'mp4',
+            }],
+        }
+
+        with yt_dlp.YoutubeDL(options) as ydl:
+            ydl.download([url])
