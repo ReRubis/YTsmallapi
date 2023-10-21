@@ -16,7 +16,7 @@ router = APIRouter(
              )
 async def search_videos(
     request: reqmodel.SearchReq,
-    service: BadYouTuber = Depends(get_bad_youtube_service),
+    service: YouTubeVideoService = Depends(get_bad_youtube_service),
 ):
     """
     returns 10 videos from youtube API
@@ -27,7 +27,7 @@ async def search_videos(
 @router.post('/download',)
 async def download_video(
     request: reqmodel.VideoId,
-    service: BadYouTuber = Depends(get_bad_youtube_service),
+    service: YouTubeVideoService = Depends(get_bad_youtube_service),
 ):
     if request.video_id:
         url = f'https://www.youtube.com/watch?v={request.video_id}'
@@ -39,7 +39,7 @@ async def download_video(
             # response_model=respmodel.YouTubeSearchResponce,
             )
 async def get_list(
-    service: BadYouTuber = Depends(get_bad_youtube_service),
+    service: YouTubeVideoService = Depends(get_bad_youtube_service),
 ):
     """
     returns all the videos that were searched before

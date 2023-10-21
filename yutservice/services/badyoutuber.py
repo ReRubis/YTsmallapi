@@ -1,4 +1,3 @@
-from tkinter.messagebox import NO
 from yutservice.utils.repository import VideoRepository
 from yutservice.yureq.ytreq2 import search_for_videos
 from yutservice.models.dbmodels import YouTubeVideo
@@ -6,7 +5,7 @@ from yutservice.schemas import respmodel
 import yt_dlp
 
 
-class BadYouTuber():
+class YouTubeVideoService():
     def __init__(self, session):
         self.session = session
         self.model = YouTubeVideo

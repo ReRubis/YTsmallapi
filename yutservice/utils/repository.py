@@ -1,5 +1,5 @@
 from datetime import datetime
-from yutservice.models.dbmodels import YouTubeVideo
+from yutservice.models.dbmodels import YouTubeVideo, Channel
 
 
 class BaseRepository():
@@ -44,6 +44,9 @@ class BaseRepository():
 
 
 class VideoRepository(BaseRepository):
+    
+    __model__ = YouTubeVideo
+
     def get_video(self, videoId):
         """
         gets certain video
@@ -65,3 +68,11 @@ class VideoRepository(BaseRepository):
         later will put a filter logic here
         """
         self.save(model)
+
+class ChannelRepository(BaseRepository):
+
+    __model__ = Channel
+
+    def get_video(self, channel_id):
+       
+        return self.get(channel_id)

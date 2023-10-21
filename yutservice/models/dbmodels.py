@@ -14,17 +14,24 @@ class Base(object):
     def __tablename__(cls):
         return f'{cls.__name__.lower()}s'
 
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
+   
+
+
+class YouTubeVideo(Base):
     videoId = Column(
         String,
         nullable=False,
         unique=True,
-        primary_key=True,
     )
-
-
-class YouTubeVideo(Base):
-
     channelTitle = Column(String)
     thumbnail = Column(String)
     title = Column(String)
     publishedAt = Column(String, nullable=True)
+
+
+class Channel(Base):
+
+    channelTitle = Column(String)
+    channelid = Column(String, unique = True)
+
