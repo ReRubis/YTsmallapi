@@ -3,10 +3,10 @@ from pydantic import BaseModel
 
 
 class Item(BaseModel):
-    videoId: str
-    thumbnail: str
-    title: str
-    channelTitle: str
+    videoId: str | None
+    thumbnail: str | None
+    title: str | None
+    channelTitle: str | None
     publishedAt: str | None
 
     class Config:

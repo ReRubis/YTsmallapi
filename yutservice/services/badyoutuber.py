@@ -45,19 +45,20 @@ class BadYouTuber():
         """Makes a search with q"""
         data = self.video_search(q, pagetoken, publishedAfter, publishedBefore)
         items = []
-        for item in data['items']:
+
+        for item in data:
             video_to_save = YouTubeVideo()
-            video_to_save.videoId = item['id']['videoId']
-            video_to_save.title = item['snippet']['title']
-            video_to_save.channelTitle = item['snippet']['channelTitle']
-            video_to_save.thumbnail = item['snippet']['thumbnails']['default']['url']
-            video_to_save.publishedAt = str(item['snippet']['publishedAt'])
+            video_to_save.videoId = item['id']
+            video_to_save.title = item['title']
+            video_to_save.channelTitle = item['channel']
+            video_to_save.thumbnail = item['thumbnails'][0]['url']
+            video_to_save.publishedAt = str(item['release_timestamp'])
             items.append(video_to_save)
             try:
                 self.repository.save(video_to_save)
             except:
                 continue
-
+        print(data)
         dict_to_return = {
             'items': items
         }
@@ -68,10 +69,6 @@ class BadYouTuber():
         if 'prevPageToken' in data:
             dict_to_return['prevPageToken'] = data['prevPageToken']
 
-        for video in dict_to_return['items']:
-            url = f'https://www.youtube.com/watch?v={video.videoId}'
-            print(url)
-            self.download_video(url)
         return dict_to_return
 
     def get_list(self):

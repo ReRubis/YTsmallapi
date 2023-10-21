@@ -1,9 +1,12 @@
 from tkinter.messagebox import NO
 from yutservice.utils.repository import VideoRepository
-from yutservice.yureq.ytreq2 import search_for_videos
 from yutservice.models.dbmodels import YouTubeVideo
 from yutservice.schemas import respmodel
 import yt_dlp
+
+from yutservice.config import CONFIG
+import requests
+API_KEY = CONFIG['KEY']
 
 
 class YouTuber():
@@ -12,9 +15,39 @@ class YouTuber():
         self.model = YouTubeVideo
         self.repository = VideoRepository(self.session)
 
+    def search_for_videos(self, q: str,
+                          pageToken: str = None,
+                          publishedAfter: str = None,
+                          publishedBefore: str = None
+                          ):
+        """Makes a YouTube API call"""
+        search_params = {
+            'key': API_KEY,
+            'q': q,  # Search query
+            'part': 'snippet',
+            'type': 'video',
+            'maxResults': 10,
+            'pageToken': pageToken,
+            'publishedAfter': publishedAfter,
+            'publishedBefore': publishedBefore,
+        }
+        search_url = 'https://www.googleapis.com/youtube/v3/search'
+
+        # Send the search request
+        response = requests.get(search_url, params=search_params)
+
+        # Handle the response
+        if response.status_code == 200:
+            data = response.json()
+            return data
+        else:
+            print(f'Request failed with status code {response.status_code}')
+            return response.status_code
+
     def search(self, q: str, pagetoken: str = None, publishedAfter: str = None, publishedBefore: str = None):
         """Makes a search with q"""
-        data = search_for_videos(q, pagetoken, publishedAfter, publishedBefore)
+        data = self.search_for_videos(
+            q, pagetoken, publishedAfter, publishedBefore)
         items = []
         for item in data['items']:
             video_to_save = YouTubeVideo()
@@ -39,10 +72,6 @@ class YouTuber():
         if 'prevPageToken' in data:
             dict_to_return['prevPageToken'] = data['prevPageToken']
 
-        for video in dict_to_return['items']:
-            url = f'https://www.youtube.com/watch?v={video.videoId}'
-            print(url)
-            self.download_video(url)
         return dict_to_return
 
     def get_list(self):

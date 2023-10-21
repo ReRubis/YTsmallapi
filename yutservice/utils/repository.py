@@ -19,10 +19,9 @@ class BaseRepository():
         return self.query.all()
 
     def save(self, model):
-        """
-        """
         self.session.add(model)
         self.session.commit()
+        self.session.refresh(model)
         return model
 
     def delete(self, id):

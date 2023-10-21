@@ -1,4 +1,5 @@
 from yutservice.services.youtuber import YouTuber
+from yutservice.services.badyoutuber import BadYouTuber
 from yutservice.utils.db_session import get_db
 from sqlalchemy.orm import Session
 
@@ -12,3 +13,7 @@ from fastapi import Depends, Cookie
 
 def get_youtube_service(session: Session = Depends(get_db)):
     return YouTuber(session)
+
+
+def get_bad_youtube_service(session: Session = Depends(get_db)):
+    return BadYouTuber(session)

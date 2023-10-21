@@ -6,3 +6,7 @@ class SearchReq(BaseModel):
     page_token: str | None
     publishedAfter: str | None
     publishedBefore: str | None
+
+
+class VideoId(BaseModel):
+    video_id: str
