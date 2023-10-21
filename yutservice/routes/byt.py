@@ -1,7 +1,7 @@
 import imp
 from fastapi import APIRouter, Depends
 from yutservice.schemas import reqmodel, respmodel
-from yutservice.services.badyoutuber import BadYouTuber
+from yutservice.services.badyoutuber import YouTubeVideoService
 from yutservice.routes.injectors import get_bad_youtube_service
 from fastapi import HTTPException, status
 

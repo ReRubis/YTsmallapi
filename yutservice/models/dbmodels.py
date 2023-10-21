@@ -14,8 +14,8 @@ class Base(object):
     def __tablename__(cls):
         return f'{cls.__name__.lower()}s'
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
-   
+    id = Column(UUID(as_uuid=True), primary_key=True,
+                default=uuid.uuid4, unique=True, nullable=False)
 
 
 class YouTubeVideo(Base):
@@ -33,5 +33,6 @@ class YouTubeVideo(Base):
 class Channel(Base):
 
     channelTitle = Column(String)
-    channelid = Column(String, unique = True)
-
+    channelid = Column(String, unique=True)
+    description = Column(String)
+    followercount = Column(String)

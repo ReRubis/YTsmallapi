@@ -1,5 +1,6 @@
 from yutservice.services.youtuber import YouTuber
 from yutservice.services.badyoutuber import YouTubeVideoService
+from yutservice.services.channeldataer import YouTubeChannelService
 from yutservice.utils.db_session import get_db
 from sqlalchemy.orm import Session
 
@@ -17,3 +18,6 @@ def get_youtube_service(session: Session = Depends(get_db)):
 
 def get_bad_youtube_service(session: Session = Depends(get_db)):
     return YouTubeVideoService(session)
+
+def get_channel_service(session: Session = Depends(get_db)):
+    return YouTubeChannelService(session)
