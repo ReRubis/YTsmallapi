@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from yutservice.routes import yt, byt, channel
+from yutservice.routes import yt, byt, channel, auth
 
 
 def router_factory():
@@ -12,6 +12,7 @@ def router_factory():
     router.include_router(yt.router)
     router.include_router(byt.router)
     router.include_router(channel.router)
+    router.include_router(auth.router)
 
     return router
 

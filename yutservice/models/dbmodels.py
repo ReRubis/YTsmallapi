@@ -36,3 +36,10 @@ class Channel(Base):
     channelid = Column(String, unique=True)
     description = Column(String)
     followercount = Column(String)
+
+
+class User(Base):
+
+    email = Column(String, unique=True)
+    password = Column(String, nullable=True, unique=False)
+    channel = Column(String, unique=True)

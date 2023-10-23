@@ -1,5 +1,5 @@
 from datetime import datetime
-from yutservice.models.dbmodels import YouTubeVideo, Channel
+from yutservice.models.dbmodels import YouTubeVideo, Channel, User
 
 
 class BaseRepository():
@@ -44,7 +44,7 @@ class BaseRepository():
 
 
 class VideoRepository(BaseRepository):
-    
+
     __model__ = YouTubeVideo
 
     def get_video(self, videoId):
@@ -69,10 +69,25 @@ class VideoRepository(BaseRepository):
         """
         self.save(model)
 
+
 class ChannelRepository(BaseRepository):
 
     __model__ = Channel
 
     def get_video(self, channel_id):
-       
+
         return self.get(channel_id)
+
+
+class UserRepository(BaseRepository):
+    """
+    A class for working with a User DB
+    """
+    __model__ = User
+
+    def get_user(self, email) -> list[User]:
+        return self.query.filter_by(email=email).all()
+
+    def save_user(self, model) -> User:
+        self.save(model)
+        return model

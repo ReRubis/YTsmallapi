@@ -4,3 +4,7 @@ KEY: AIzaSyA5bQ7D-b_mjjkIPHj-K4vTiWqmqsV8skc
 # ----------------------Database---------------------------
 POSTGRES_DATABASE_URL: "postgresql://postgres:postgres@db/postgres"
 # uvicorn yutservice.main:app --reload
+
+
+# SECRETKEY for JWT
+JWT_KEY: Sdasdad3w#RKnqg8125DSvBF*fY9V(y*&VNFdfBU(t8DnfDSasf12g12gasg1sa!Lm4f43%E5&*6DV%$

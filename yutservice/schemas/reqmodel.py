@@ -10,3 +10,13 @@ class SearchReq(BaseModel):
 
 class VideoId(BaseModel):
     video_id: str
+
+
+class RequestLogIn(BaseModel):
+    email: str
+    password: str
+
+
+class RequestRegistration(BaseModel):
+    email: str
+    password: str
