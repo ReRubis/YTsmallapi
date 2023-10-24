@@ -10,7 +10,7 @@ class Item(BaseModel):
     publishedAt: str | None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class YouTubeSearchResponce(BaseModel):
@@ -19,4 +19,4 @@ class YouTubeSearchResponce(BaseModel):
     items: list[Item] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True

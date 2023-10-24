@@ -28,7 +28,8 @@ async def logout(
 
 
 @router.get('/login_check',
-            response_model=usersschem.UserOut)
+            response_model=usersschem.UserOut
+            )
 async def check_login(
     user: User = Depends(get_auth_user),
 ):
