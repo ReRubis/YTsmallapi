@@ -1,11 +1,12 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class SearchReq(BaseModel):
     q: str
-    page_token: str | None
-    publishedAfter: str | None
-    publishedBefore: str | None
+    page_token: Optional[str] = None
+    publishedAfter: Optional[str] = None
+    publishedBefore: Optional[str] = None
 
 
 class VideoId(BaseModel):

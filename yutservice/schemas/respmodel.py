@@ -1,21 +1,19 @@
-from tkinter.messagebox import NO
 from pydantic import BaseModel
+from typing import Optional
 
 
 class Item(BaseModel):
-    videoId: str | None
-    thumbnail: str | None
-    title: str | None
-    channelTitle: str | None
-    publishedAt: str | None
+    videoId: Optional[str] = None
+    thumbnail: Optional[str] = None
+    title: Optional[str] = None
+    channelTitle: Optional[str] = None
+    publishedAt: Optional[str] = None
 
     class Config:
         from_attributes = True
 
 
 class YouTubeSearchResponce(BaseModel):
-    nextPageToken: str | None
-    prevPageToken: str | None
     items: list[Item] = []
 
     class Config:

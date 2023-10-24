@@ -45,7 +45,7 @@ async def get_list(
     returns all the videos that were searched before
     """
     result = service.get_list()
-    if result['items'][0] is None:
+    if not result['items']:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="None in the database")
     return result
